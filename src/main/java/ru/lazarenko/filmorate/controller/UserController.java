@@ -27,8 +27,11 @@ public class UserController {
             log.error("User with login {} already exist", user.getLogin());
             throw new ValidationException("User with login='" + user.getId() + "' already exist");
         }
-
         user.setId(idUser++);
+        if(user.getName().isEmpty() || user.getName() == null){
+            user.setName(user.getLogin());
+        }
+
         users.put(user.getId(), user);
 
         log.info("Successful added new user {}", user);
