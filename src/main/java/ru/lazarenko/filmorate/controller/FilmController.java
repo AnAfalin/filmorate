@@ -24,12 +24,9 @@ public class FilmController {
     public Film addFilm(@Valid @RequestBody Film film) {
         log.info("Request add new Film");
 
-        if (!films.values().stream().noneMatch(filmSaved -> filmSaved.getName().equals(film.getName()) &&
-                filmSaved.getDescription().equals(film.getDescription()) &&
-                filmSaved.getDuration() == film.getDuration() &&
-                filmSaved.getReleaseDate().equals(film.getReleaseDate()))) {
+        if (films.values().stream().anyMatch(filmSaved -> filmSaved.equals(film))) {
             log.error("Film already exist");
-            throw new ValidationException("Film  already exist");
+            throw new ValidationException("Film already exists");
         }
 
         film.setId(idFilm++);
@@ -48,7 +45,7 @@ public class FilmController {
             throw new ValidationException("Invalid film id='" + film.getId() + "' of updatable user");
         }
 
-        if(films.get(film.getId()) == null){
+        if (films.get(film.getId()) == null) {
             log.error("Film with id='" + film.getId() + "'' s not exist");
             throw new ValidationException("Invalid id='" + film.getId() + "' of updatable user");
         }
@@ -60,7 +57,7 @@ public class FilmController {
 
     @GetMapping
     public List<Film> getAllFilms() {
-        log.info("Returned get all films");
+        log.info("Request get all films");
         return new ArrayList<>(films.values());
     }
 }

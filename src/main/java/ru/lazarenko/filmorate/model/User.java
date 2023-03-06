@@ -15,16 +15,16 @@ public class User {
     @Null
     private Integer id;
 
-    @NotBlank(message = "Email can not be empty or null")
+    @NotBlank(message = "Email must be not empty and not null")
     @Email
     private String email;
 
-    @NotBlank(message = "Login can not be empty or null")
+    @NotBlank(message = "Login must be not empty and not null")
     private String login;
 
     private String name;
 
-    @PastOrPresent(message = "Birthday can not ne in the future")
+    @PastOrPresent(message = "Birthday must be in the past, not future")
     private LocalDate birthday;
 
 }

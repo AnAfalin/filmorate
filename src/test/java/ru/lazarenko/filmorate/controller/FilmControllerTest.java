@@ -42,12 +42,12 @@ public class FilmControllerTest {
     }
 
     @Test
-    void createFilm_rejectName_nameIsNotEmptyAndNotNull(){
+    void createFilm_acceptName_nameIsNotEmptyAndNotNull(){
         assertTrue(validator.validate(film).isEmpty());
     }
 
     @Test
-    void createFilm_rejectDescription_descriptionIsNotEmptyAndNotNull(){
+    void createFilm_acceptDescription_descriptionIsNotEmptyAndNotNull(){
         assertTrue(validator.validate(film).isEmpty());
     }
 
@@ -70,12 +70,12 @@ public class FilmControllerTest {
     }
 
     @Test
-    void createFilm_rejectReleaseDate_releaseDateIsCorrect(){
+    void createFilm_acceptReleaseDate_releaseDateIsCorrect(){
         assertTrue(validator.validate(film).isEmpty());
     }
 
     @Test
-    void createFilm_rejectDuration_durationIsCorrect(){
+    void createFilm_acceptDuration_durationIsCorrect(){
         assertTrue(validator.validate(film).isEmpty());
     }
 

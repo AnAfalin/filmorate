@@ -74,7 +74,7 @@ public class UserControllerTest {
     }
 
     @Test
-    void updateUser_error_userWithIdIsNull(){
+    void updateUser_validationException_userWithIdIsNull(){
         userController.addUser(user);
 
         user.setId(null);
