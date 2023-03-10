@@ -1,15 +1,13 @@
 package ru.lazarenko.filmorate.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.comparator.ComparableComparator;
 import org.springframework.web.bind.annotation.*;
 import ru.lazarenko.filmorate.exception.ValidationException;
 import ru.lazarenko.filmorate.model.Film;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Slf4j
 @RestController
@@ -24,7 +22,12 @@ public class FilmController {
     public Film addFilm(@Valid @RequestBody Film film) {
         log.info("Request add new Film");
 
-        if (films.values().stream().anyMatch(filmSaved -> filmSaved.equals(film))) {
+        if (films.values()
+                .stream()
+                .anyMatch(filmSaved -> (filmSaved.getName().equals(film.getName()) &&
+                        filmSaved.getReleaseDate().equals(film.getReleaseDate()) &&
+                        filmSaved.getDescription().equals(film.getDescription()) &&
+                        filmSaved.getDuration().equals(film.getDuration())))){
             log.error("Film already exist");
             throw new ValidationException("Film already exists");
         }
@@ -45,7 +48,7 @@ public class FilmController {
             throw new ValidationException("Invalid film id='" + film.getId() + "' of updatable user");
         }
 
-        if (films.get(film.getId()) == null) {
+        if (!films.containsKey(film.getId())) {
             log.error("Film with id='" + film.getId() + "'' s not exist");
             throw new ValidationException("Invalid id='" + film.getId() + "' of updatable user");
         }

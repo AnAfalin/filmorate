@@ -47,10 +47,10 @@ public class UserController {
 
         if (user.getId() == null || user.getId() <= 0) {
             log.error("Id updatable user must not be null or less than 1");
-            throw new ValidationException("Invalid id='" + user.getId() + "' of updatable user");
+            throw new ValidationException("Invalid user id='" + user.getId() + "' of updatable user");
         }
 
-        if (users.get(user.getId()) == null) {
+        if (!users.containsKey(user.getId())) {
             log.error("User with id='" + user.getId() + "' is not exist");
             throw new ValidationException("Invalid user id='" + user.getId() + "' of updatable user");
         }

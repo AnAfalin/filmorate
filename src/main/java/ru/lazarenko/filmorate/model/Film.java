@@ -2,7 +2,6 @@ package ru.lazarenko.filmorate.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ru.lazarenko.filmorate.constraint.DateRelease;
 
@@ -15,7 +14,6 @@ import java.time.LocalDate;
 public class Film {
 
     @Null
-    @EqualsAndHashCode.Exclude
     private Integer id;
 
     @NotBlank(message = "Title of film must be not empty")
@@ -29,5 +27,5 @@ public class Film {
     private LocalDate releaseDate;
 
     @Positive(message = "Duration of film must be positive value")
-    private int duration;
+    private Integer duration;
 }
