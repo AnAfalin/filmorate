@@ -7,6 +7,7 @@ import ru.lazarenko.filmorate.constraint.DateRelease;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Data
 @AllArgsConstructor
@@ -28,4 +29,15 @@ public class Film {
 
     @Positive(message = "Duration of film must be positive value")
     private Integer duration;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Film film = (Film) o;
+        return Objects.equals(name, film.name)
+                && Objects.equals(description, film.description)
+                && Objects.equals(releaseDate, film.releaseDate)
+                && Objects.equals(duration, film.duration);
+    }
 }

@@ -17,17 +17,13 @@ public class FilmController {
     private int idFilm = 1;
     private final Map<Integer, Film> films = new HashMap<>();
 
-
     @PostMapping
     public Film addFilm(@Valid @RequestBody Film film) {
         log.info("Request add new Film");
 
         if (films.values()
                 .stream()
-                .anyMatch(filmSaved -> (filmSaved.getName().equals(film.getName()) &&
-                        filmSaved.getReleaseDate().equals(film.getReleaseDate()) &&
-                        filmSaved.getDescription().equals(film.getDescription()) &&
-                        filmSaved.getDuration().equals(film.getDuration())))){
+                .anyMatch(filmSaved -> (filmSaved.equals(film)))){
             log.error("Film already exist");
             throw new ValidationException("Film already exists");
         }
@@ -49,7 +45,7 @@ public class FilmController {
         }
 
         if (!films.containsKey(film.getId())) {
-            log.error("Film with id='" + film.getId() + "'' s not exist");
+            log.error("Film with id='" + film.getId() + "' is not exist");
             throw new ValidationException("Invalid id='" + film.getId() + "' of updatable user");
         }
 
